@@ -5,4 +5,5 @@ app_name = "main"
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("invalid/", views.invalid, name="invalid"),
 ]

@@ -8,9 +8,18 @@
 <body>
     <div class="navbar bg-dark navbar-dark justify-content-between">
         <a class="navbar-brand" href="{% url 'main:index' %}">Home</a>
-        <div class="justify-self-right my-2 text-right">{% include "users/index.html" %}</div>
+        <div class="justify-self-right my-2 text-right">
+            {% include "users/index.html" %}
+        </div>
     </div>
     <div class="row w-100 h-100 mx-auto align-items-center">
+    {% if message is not None %}
+        <div class="w-100 alert alert-warning text-right" role="alert" style="height:10px;line-height: 3px;">
+            <b><span style="margin-right: 18%;">{{ message }}</span></b>
+        </div>
+    {% else %}
+        <div class="w-100 alert" style="height: 10px;"></div>
+    {% endif %}
     {% block body %}
     {% endblock %}
     </div>

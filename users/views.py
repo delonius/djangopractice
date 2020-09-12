@@ -8,13 +8,6 @@ from . import forms
 # Create your views here.
 
 
-def index(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("users:login"))
-    else:
-        return render(request, "users/index.html")
-
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -22,12 +15,9 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("main:index"))
         else:
-            return render(request, "users/login.html", {
-                "message": "Invalid credentials."
-            })
-    return render(request, "users/login.html")
+            return HttpResponseRedirect(reverse("main:invalid"))
+        return HttpResponseRedirect(reverse("main:index"))
 
 
 def logout_view(request):
