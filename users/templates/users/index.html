@@ -1,0 +1,5 @@
+{% if not request.user.is_authenticated %}
+    {% include "users/login.html" %}
+{% else %}
+<a href="{% url 'users:logout' %}">Log Out</a>
+{% endif %}
