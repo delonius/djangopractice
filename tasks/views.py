@@ -41,6 +41,7 @@ def view_task(request, task_id):
         return HttpResponseRedirect(reverse("main:not_found"))
 
 
+@login_required
 def delete_task(request, task_id):
     task = Task.objects.get(pk=int(task_id))
     if not task.user == request.user:
