@@ -21,6 +21,8 @@ def add(request):
     if request.method == "POST":
         title = request.POST["title"]
         entry = request.POST["entry"]
+        if title == '':
+            return HttpResponseRedirect(reverse('tasks:index'))
         task = Task(user=request.user, name=title, entry=entry)
         task.save()
         return HttpResponseRedirect(reverse('tasks:index'))
@@ -32,7 +34,7 @@ def view_task(request, task_id):
     try:
         task = Task.objects.get(pk=int(task_id))
         if not task.user == request.user:
-            return HttpResponseRedirect(reverse("main:not_found"))
+            raise ObjectDoesNotExist
         else:
             return render(request, "tasks/task.html", {
                 "task": task,
@@ -41,6 +43,7 @@ def view_task(request, task_id):
         return HttpResponseRedirect(reverse("main:not_found"))
 
 
+@login_required
 def delete_task(request, task_id):
     task = Task.objects.get(pk=int(task_id))
     if not task.user == request.user:

@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block body %}
+    <div class="col-9 mx-auto pt-2 pb-5 mt-2 w-100 align-self-center">
+        <div class="card p-5 my-auto" style="width: 80%; margin: auto; box-shadow: 5px 5px 5px Gray;">
+            <h1 class="card-title">{{ blog.title }}</h1>
+            <h4 class="card-subtitle">Author: {{ blog.author }}</h4>
+            <hr style="height:2x; color:gray; background-color:gray;">
+            <p>{{ blog.content|linebreaks }}</p>
+            <a href="{% url 'blog:index' %}">Return to Entries</a>
+
+        </div>
+    </div>
+{% endblock %}
