@@ -1,5 +1,11 @@
 {% if not request.user.is_authenticated %}
-    {% include "users/login.html" %}
+    <form class="form-inline" action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Login">&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'users:new' %}">Create Account</a>
+    </form>
 {% else %}
 <a href="{% url 'users:logout' %}">Log Out</a>
 {% endif %}

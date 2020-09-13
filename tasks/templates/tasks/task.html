@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}View Task{% endblock %}
+
+{% block body %}
+<div class="col-9 mx-auto pt-5 mt-2 w-100 align-self-center">
+    <div class="card p-5 my-auto" style="width: 60%; margin: auto; box-shadow: 5px 5px 5px Gray;">
+        <h4 class="card-title">{{ task.name }}</h4><br>
+        <p class="card-text pl-5">{{ task.entry }}</p><br>
+        <div style="display: inline;">
+            <a href="{% url 'tasks:index' %}">Return to Tasks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'tasks:delete' task.id %}">Delete Task</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

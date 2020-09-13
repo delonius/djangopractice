@@ -1,0 +1,20 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block body %}
+<div class="col-9 mx-auto pt-5 mt-2 w-100 align-self-center">
+    <div class="card p-5 my-auto" style="width: 40%; margin: auto; box-shadow: 5px 5px 5px Gray;">
+        <h2 class="card-title pl-5">Tasks</h2>
+        <ul class="ml-5 pl-5">
+            {% for task in tasks %}
+            <li><a href="{% url 'tasks:task' task.id %}">{{ task.name }}</a></li>
+            {% empty %}
+                <li>No tasks found.</li>
+            {% endfor %}
+        </ul>
+        <a class="ml-5 pl-5" href="{% url 'tasks:add' %}">Add Task</a>
+    </div>
+</div>
+
+{% endblock %}
