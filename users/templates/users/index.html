@@ -4,7 +4,7 @@
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
         <input type="submit" value="Login">&nbsp;&nbsp;&nbsp;
-        <a href="{% url 'users:new' %}">Create Account</a>
+        <a style="color: white;" href="{% url 'users:new' %}">Create Account</a>
     </form>
 {% else %}
 <a href="{% url 'users:logout' %}">Log Out</a>
