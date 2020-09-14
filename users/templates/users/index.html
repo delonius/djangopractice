@@ -7,5 +7,10 @@
         <a style="color: white;" href="{% url 'users:new' %}">Create Account</a>
     </form>
 {% else %}
-<a style="color: white;" href="{% url 'users:logout' %}">Log Out</a>
+<span style="display:inline;">
+    {% if request.user.is_superuser %}
+        <a style="color: white;" href="/admin">Admin</a>&nbsp;&nbsp;&nbsp;
+    {% endif %}
+    <a style="color: white;" href="{% url 'users:logout' %}">Log Out</a>
+</span>
 {% endif %}
