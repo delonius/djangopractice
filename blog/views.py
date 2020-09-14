@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from .models import Blog
+from django.apps import apps
+Task = apps.get_model('tasks', 'Task')
+
+
+def tasks_due(request):
+    return len(Task.objects.filter(user=request.user).all()) if request.user.is_authenticated else None
 
 
 def get_blogs_tags():
@@ -13,6 +19,7 @@ def index(request):
     return render(request, "blog/index.html", {
         "blogs": blogs,
         "tags": tags,
+        "tasks_due": tasks_due(request),
     })
 
 
@@ -20,6 +27,7 @@ def blog_view(request, blog_id):
     blog = Blog.objects.get(pk=int(blog_id))
     return render(request, "blog/blog.html", {
         "blog": blog,
+        "tasks_due": tasks_due(request),
     })
 
 
@@ -31,6 +39,7 @@ def filter_author(request, author):
         "tags": tags,
         "filter_type": "author",
         "author": author,
+        "tasks_due": tasks_due(request),
     })
 
 
@@ -45,4 +54,5 @@ def filter_tag(request, tag):
         "tags": tags,
         "filter_type": "tag",
         "tag": tag,
+        "tasks_due": tasks_due(request),
     })

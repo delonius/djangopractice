@@ -12,7 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 def index(request):
     tasks = Task.objects.filter(user=request.user).all()
     return render(request, "tasks/index.html", {
-        "tasks": tasks
+        "tasks": tasks,
+        "tasks_due": len(tasks),
     })
 
 
@@ -26,7 +27,9 @@ def add(request):
         task = Task(user=request.user, name=title, entry=entry)
         task.save()
         return HttpResponseRedirect(reverse('tasks:index'))
-    return render(request, "tasks/add.html")
+    return render(request, "tasks/add.html", {
+        "tasks_due": len(Task.objects.filter(user=request.user).all()),
+    })
 
 
 @login_required
@@ -38,6 +41,7 @@ def view_task(request, task_id):
         else:
             return render(request, "tasks/task.html", {
                 "task": task,
+                "tasks_due": len(Task.objects.filter(user=request.user).all()),
             })
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse("main:not_found"))
